@@ -85,8 +85,23 @@ def compute_posterior(prior, likelihood, y):
     # value). You need to go to log-domain. Hint: this next line is a good
     # first step.
     log_prior = np.log(prior)
+	log_likelihood = np.log(likelihood)
+	log_numerator = np.zeros((1,M))
+	
+	#finding the log numerator	
+	for rate in range(len(y)):
+		#total_log_likelihood += log_likelihood[y[rate],:]
+		log_numerator+=log_likelihood[y[rate],:]
+	
+	log_numerator += log_prior
+	
+	#finding the log denominator
+	log_denominator = scipy.misc.logsumexp(log_numerator)
+	#KIV: can't we just use the summation fucntions here?
 
+	#log_answer =(total_log_likelihood + log_prior) - scipy.misc.logsumexp(total_log_likelihood + log_prior)
     #
+	#
     # END OF YOUR CODE FOR PART (b)
     # -------------------------------------------------------------------------
 
@@ -116,11 +131,17 @@ def compute_movie_rating_likelihood(M):
 
     # -------------------------------------------------------------------------
     # YOUR CODE GOES HERE FOR PART (c)
-    #
+    for m in np.arange(M):
+		for k in np.arange(M):
+			if k == m:
+				likelihood[k,m] = 2.
+			else:
+				likelihood[k,m] = 1. / np.abs(k-m)
+		likelihood[:,m] /= np.sum(likelihood[:,m])
+	
     # Remember to normalize the likelihood, so that each column is a
     # probability distribution.
     #
-
     #
     # END OF YOUR CODE FOR PART (c)
     # -------------------------------------------------------------------------
