@@ -282,62 +282,20 @@ def compute_true_movie_rating_posterior_entropies(num_observations):
 
 
 def main():
+	movie_posteriors, movie_MAP = infer_true_movie_ratings()
+	highest_MAP = []
+	for movie_id in range(len(movie_MAP)):
+		index = 0
+		#highest_MAP = []
+		if movie_MAP[movie_id] == 10.0:
+			highest_MAP.append(movie_data_helper.get_movie_name(movie_id))
+			index += 1
 
-	# -------------------------------------------------------------------------
-	# ERROR CHECKS
-	#
-	# Here are some error checks that you can use to test your code.
-
-	print("Posterior calculation (few observations)")
-	prior = np.array([0.6, 0.4])
-	likelihood = np.array([
-		[0.7, 0.98],
-		[0.3, 0.02],
-	])
-	y = [0]*2 + [1]*1
-	print("My answer:")
-	print(compute_posterior(prior, likelihood, y))
-	print("Expected answer:")
-	print(np.array([[0.91986917, 0.08013083]]))
-
-	print("---")
-	print("Entropy of fair coin flip")
-	distribution = np.array([0.5, 0.5])
-	print("My answer:")
-	print(compute_entropy(distribution))
-	print("Expected answer:")
-	print(1.0)
-
-	print("Entropy of coin flip where P(heads) = 0.25 and P(tails) = 0.75")
-	distribution = np.array([0.25, 0.75])
-	print("My answer:")
-	print(compute_entropy(distribution))
-	print("Expected answer:")
-	print(0.811278124459)
-
-	print("Entropy of coin flip where P(heads) = 0.75 and P(tails) = 0.25")
-	distribution = np.array([0.75, 0.25])
-	print("My answer:")
-	print(compute_entropy(distribution))
-	print("Expected answer:")
-	print(0.811278124459)
-
-	#
-	# END OF ERROR CHECKS
-	# -------------------------------------------------------------------------
-
-	# -------------------------------------------------------------------------
-	# YOUR CODE GOES HERE FOR TESTING THE FUNCTIONS YOU HAVE WRITTEN,
-	# for example, to answer the questions in part (e) and part (h)
-	#
-	# Place your code that calls the relevant functions here.  Make sure it's
-	# easy for us graders to run your code. You may want to define multiple
-	# functions for each of the parts of this problem, and call them here.
-
-	#
-	# END OF YOUR CODE FOR TESTING
-	# -------------------------------------------------------------------------
-
+	print "Highest rating movies are"
+	print " --- --- ---"
+	#print highest_MAP
+	for index in range(9):
+		print highest_MAP[index]
 
 if __name__ == '__main__':
 	main()
