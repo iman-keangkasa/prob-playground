@@ -173,11 +173,11 @@ import matplotlib.pyplot as plt
 #                          |___/ 
 
 
-n = np.array(range(1,100))
-plt.plot(n,1-(26./27)**(100-n))
-plt.xlabel('Number of rolls')
-plt.ylabel('Probability of seeing 27 at least once')
-plt.show()
+#n = np.array(range(1,100))
+#plt.plot(n,1-(26./27)**(100-n))
+#plt.xlabel('Number of rolls')
+#plt.ylabel('Probability of seeing 27 at least once')
+#plt.show()
 
 #3D prob space for two succesive experiments on coins
 
@@ -190,3 +190,25 @@ plt.show()
 #H_up_head = 
 #H2_up_fair =  
 #H2_up_head 
+
+
+# ____            _     _                               _
+#|  _ \  ___  ___(_)___(_) ___  _ __     __ _ _ __   __| |
+#| | | |/ _ \/ __| / __| |/ _ \| '_ \   / _` | '_ \ / _` |
+#| |_| |  __/ (__| \__ \ | (_) | | | | | (_| | | | | (_| |
+#|____/ \___|\___|_|___/_|\___/|_| |_|  \__,_|_| |_|\__,_|
+
+# _____                           _        _   _
+#| ____|_  ___ __   ___  ___  ___| |_ __ _| |_(_) ___  _ __
+#|  _| \ \/ / '_ \ / _ \/ _ \/ __| __/ _` | __| |/ _ \| '_ \
+#| |___ >  <| |_) |  __/  __/ (__| || (_| | |_| | (_) | | | |
+#|_____/_/\_\ .__/ \___|\___|\___|\__\__,_|\__|_|\___/|_| |_|
+#           |_|
+
+import random 
+sample = []
+for roll in range(9999):
+	sample.append(random.randint(1, 6))
+	
+
+print np.mean(sample)
