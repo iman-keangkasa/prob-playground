@@ -21,6 +21,8 @@ import matplotlib.pyplot as plt
 #                          \___| \_/ \___|_| |_|\__|___/
                                                        
 #######################################################################
+#probability spaces and events
+
 #def prob_of_event(event, prob_space):
 #	total = 0
 #	for outcome in event:
@@ -41,6 +43,7 @@ import matplotlib.pyplot as plt
 #                     \_/ \__,_|_|  |_|\__,_|_.__/|_|\___||___/
 #                                                              
 ######################################################################
+#Random variables
 
 #prob_space = {'sunny': 1./2, 'rainy':1./6, 'snowy': 1./3} #DEFINING A PROBABILITY SPACE OR PROBABILITY MODEL
 #random_outcome = comp_prob_inference.sample_from_finite_probability_space(prob_space) #GETTING THE RANDOM OUTCOME SMALL OMEGA
@@ -66,6 +69,7 @@ import matplotlib.pyplot as plt
 #     \__,_|_|___/\__|_|  |_|_.__/ \__,_|\__\___|\__,_| |_| \_\ \_/    |___/
 #
 #####################################################################################################
+#jointly distributed random variables
 
 #APPROACH 1: USING DICTIONARIES WITHIN DICTIONARY APPROACH
 #prob_W_T_dict = {}
@@ -114,6 +118,8 @@ import matplotlib.pyplot as plt
 #                     |  __/ (_| | | | (_| | (_| | (_) >  < 
 #                     |_|   \__,_|_|  \__,_|\__,_|\___/_/\_\     An Exercise on joint probability dist.
 ##################################################################################################################
+#Simpsson's paradox
+
 
 #from simpsons_paradox_data import *
 #print joint_prob_table[gender_mapping['female'],department_mapping['C'],admission_mapping['admitted']]
@@ -171,7 +177,7 @@ import matplotlib.pyplot as plt
 #|  _| (_| | | | (_| | (__| |_| |
 #|_|  \__,_|_|_|\__,_|\___|\__, |
 #                          |___/ 
-
+#Independece-gambler's fallacy
 
 #n = np.array(range(1,100))
 #plt.plot(n,1-(26./27)**(100-n))
@@ -203,12 +209,78 @@ import matplotlib.pyplot as plt
 #|  _| \ \/ / '_ \ / _ \/ _ \/ __| __/ _` | __| |/ _ \| '_ \
 #| |___ >  <| |_) |  __/  __/ (__| || (_| | |_| | (_) | | | |
 #|_____/_/\_\ .__/ \___|\___|\___|\__\__,_|\__|_|\___/|_| |_|
-#           |_|
+#           |_|Decision and expectation
 
-import random 
-sample = []
-for roll in range(9999):
-	sample.append(random.randint(1, 6))
+#import random 
+#sample = []
+#for roll in range(9999):
+#	sample.append(random.randint(1, 6))
 	
+#print np.mean(sample)
 
-print np.mean(sample)
+# ____  _
+#/ ___|| |__   __ _ _ __  _ __   ___  _ __
+#\___ \| '_ \ / _` | '_ \| '_ \ / _ \| '_ \
+# ___) | | | | (_| | | | | | | | (_) | | | |
+#|____/|_| |_|\__,_|_| |_|_| |_|\___/|_| |_|
+
+# _____       _
+#| ____|_ __ | |_ _ __ ___  _ __  _   _
+#|  _| | '_ \| __| '__/ _ \| '_ \| | | |
+#| |___| | | | |_| | | (_) | |_) | |_| |
+#|_____|_| |_|\__|_|  \___/| .__/ \__, |
+#                          |_|    |___/
+#shannon entropy
+
+entropy = lambda p: np.sum(p*np.log2(1/p))
+
+#def entropy(p):
+#	return np.sum(p*np.log2(1/p))
+
+#entropy_L1 = entropy(np.array([999999./1000000, 1./1000000]))
+#entropy_L2 = entropy(np.array([999999./1000000, 1./1000000]))
+#entropy_L3 = entropy(np.array([9./10, 1./10]))
+#print str(entropy_L1) + "\n" + str(entropy_L2) + "\n" + str(entropy_L3)
+
+#p_list = np.linspace(0,1,50) #range 0 until 1 separated by 50 parts
+#plt.figure()
+#plt.plot(p_list,[entropy(np.array([p, 1-p])) for p in p_list])
+#plt.xlabel('p')
+#plt.ylabel('H(Ber(p)))')
+#plt.show()
+
+# __  __       _               _
+#|  \/  |_   _| |_ _   _  __ _| |
+#| |\/| | | | | __| | | |/ _` | |
+#| |  | | |_| | |_| |_| | (_| | |
+#|_|  |_|\__,_|\__|\__,_|\__,_|_|
+#
+# ___        __                            _   _
+#|_ _|_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __
+# | || '_ \| |_ / _ \| '__| '_ ` _ \ / _` | __| |/ _ \| '_ \
+# | || | | |  _| (_) | |  | | | | | | (_| | |_| | (_) | | | |
+#|___|_| |_|_|  \___/|_|  |_| |_| |_|\__,_|\__|_|\___/|_| |_|
+#mutual information
+
+prob_XY = np.array([[1.10, 0.09, 0.11],[0.08,0.07,0.07],[0.18,0.13,0.17]])
+prob_X = prob_XY.sum(axis = 1)
+prob_Y = prob_XY.sum(axis = 0)
+prob_indie_XY = np.outer(prob_X, prob_Y)
+
+# my solution
+#def compute_info(xy,indie_xy):
+#	return xy*np.log2(xy/indie_xy)
+
+#mutual_info = 0.0
+#for x in range(len(prob_X)):
+#	for y in range(len(prob_Y)):
+#		mutual_info += compute_info(prob_XY[x,y],prob_indie_XY[x,y])
+
+#print "The bit shared between X and Y are: " + str(mutual_info)
+
+# edx solution
+
+compute_info = lambda p, q: np.sum(p * np.log2(p / q))
+
+print compute_info(prob_XY, prob_indie_XY)
+
